@@ -4,7 +4,7 @@ const allProducts = {
     'Paket Sketsa Teknis': 12000,
     'Paket Visual Eksterior': 24000,
     'Paket Siap Bangun': 35000,
-    'Paket All-in Design (Premium)': 35000,
+    'Paket All-in Design (Premium)': 45000,
     // Layanan Satuan
     'Gambar Kerja Desain 2D': 15000,
     'Desain 3D Eksterior': 15000,
