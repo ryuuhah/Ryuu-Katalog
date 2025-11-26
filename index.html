@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desain Bangunan Premium - Layanan Gambar Arsitektur</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Arsitek<span>Elegance</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="#packages">Paket Promo</a></li>
+                    <li><a href="#services">Layanan Satuan</a></li>
+                    <li><a href="#calculator">Hitung Biaya</a></li>
+                    <li><a href="#order">Pesan Sekarang</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <h2>Wujudkan Bangunan Impian Anda dengan Desain Premium</h2>
+            <p>Eksklusif, Terperinci, dan Siap Bangun. Konsultasi Gratis!</p>
+            <a href="https://wa.me/6285117788355?text=Halo%2C%20saya%20tertarik%20dengan%20layanan%20desain%20bangunan%20Anda." target="_blank" class="cta-button"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+        </div>
+    </section>
+
+    <section id="packages" class="section packages">
+        <div class="container">
+            <h2 class="section-title">✨ Paket Desain Promo Terbaik ✨</h2>
+            <div class="package-list">
+                <div class="package-item" data-name="Paket Sketsa Teknis" data-price-m2="12000" data-base-price="15000">
+                    <span class="package-badge">Hemat</span>
+                    <h3>Paket Sketsa Teknis</h3>
+                    <p class="old-price">~~Rp 15.000~~/m²</p>
+                    <p class="new-price">Rp 12.000<span>/m²</span></p>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check-circle"></i> Gambar Kerja Desain 2D</li>
+                    </ul>
+                    <button class="select-btn" onclick="addToCart('Paket Sketsa Teknis', 12000)">Pilih Paket</button>
+                </div>
+
+                <div class="package-item popular" data-name="Paket Visual Eksterior" data-price-m2="24000" data-base-price="30000">
+                    <span class="package-badge popular-badge">🌟 Populer 🌟</span>
+                    <h3>Paket Visual Eksterior</h3>
+                    <p class="old-price">~~Rp 30.000~~/m²</p>
+                    <p class="new-price">Rp 24.000<span>/m²</span></p>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check-circle"></i> Gambar Kerja Desain 2D</li>
+                        <li><i class="fas fa-check-circle"></i> Gambar Render 3D (Eksterior)</li>
+                    </ul>
+                    <button class="select-btn" onclick="addToCart('Paket Visual Eksterior', 24000)">Pilih Paket</button>
+                </div>
+
+                <div class="package-item" data-name="Paket Siap Bangun" data-price-m2="35000" data-base-price="45000">
+                    <span class="package-badge">Terlengkap</span>
+                    <h3>Paket Siap Bangun</h3>
+                    <p class="old-price">~~Rp 45.000~~/m²</p>
+                    <p class="new-price">Rp 35.000<span>/m²</span></p>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check-circle"></i> Gambar Kerja Desain 2D</li>
+                        <li><i class="fas fa-check-circle"></i> Gambar Render 3D (Eksterior)</li>
+                        <li><i class="fas fa-check-circle"></i> Rencana Anggaran Biaya (RAB)</li>
+                    </ul>
+                    <button class="select-btn" onclick="addToCart('Paket Siap Bangun', 35000)">Pilih Paket</button>
+                </div>
+
+                <div class="package-item premium" data-name="Paket All-in Design (Premium)" data-price-m2="35000" data-base-price="45000">
+                    <div class="premium-aura"></div>
+                    <span class="package-badge premium-badge">💎 Premium 💎</span>
+                    <h3>Paket All-in Design</h3>
+                    <p class="old-price">~~Rp 45.000~~/m²</p>
+                    <p class="new-price">Rp 35.000<span>/m²</span></p>
+                    <ul class="package-features">
+                        <li><i class="fas fa-star"></i> Gambar Kerja Desain 2D</li>
+                        <li><i class="fas fa-star"></i> Gambar Render 3D (Eksterior)</li>
+                        <li><i class="fas fa-star"></i> Gambar Render 3D (Interior)</li>
+                        <li><i class="fas fa-star"></i> Rencana Anggaran Biaya (RAB)</li>
+                    </ul>
+                    <button class="select-btn" onclick="addToCart('Paket All-in Design (Premium)', 35000)">Pilih Paket</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section services">
+        <div class="container">
+            <h2 class="section-title">Layanan Jasa Gambar Satuan</h2>
+            <div class="service-list">
+                <div class="service-item" data-name="Gambar Kerja Desain 2D" data-price-m2="15000">
+                    <h3>1. Gambar Kerja Desain 2D</h3>
+                    <p class="price-m2">Rp 15.000/m²</p>
+                    <button class="select-btn" onclick="addToCart('Gambar Kerja Desain 2D', 15000)">Tambah</button>
+                </div>
+                <div class="service-item" data-name="Desain 3D Eksterior" data-price-m2="15000">
+                    <h3>2. Desain 3D Eksterior</h3>
+                    <p class="price-m2">Rp 15.000/m²</p>
+                    <button class="select-btn" onclick="addToCart('Desain 3D Eksterior', 15000)">Tambah</button>
+                </div>
+                <div class="service-item" data-name="Rencana Anggaran Biaya (RAB)" data-price-m2="20000">
+                    <h3>3. Rencana Anggaran Biaya (RAB)</h3>
+                    <p class="price-m2">Rp 20.000/m²</p>
+                    <button class="select-btn" onclick="addToCart('Rencana Anggaran Biaya (RAB)', 20000)">Tambah</button>
+                </div>
+                <div class="service-item" data-name="Desain 3D Interior" data-price-m2="15000">
+                    <h3>4. Desain 3D Interior</h3>
+                    <p class="price-m2">Rp 15.000/m²</p>
+                    <button class="select-btn" onclick="addToCart('Desain 3D Interior', 15000)">Tambah</button>
+                </div>
+                <div class="service-item" data-name="Desain 2D dan 3D Furnitur" data-price-m2="0">
+                    <h3>5. Desain 2D & 3D Furnitur</h3>
+                    <p class="price-m2">Harga (Menyesuaikan)</p>
+                    <a href="https://wa.me/6285117788355?text=Halo%2C%20saya%20ingin%20memesan%20jasa%20desain%20furnitur." target="_blank" class="select-btn wa-link">Konsultasi</a>
+                </div>
+                <div class="service-item" data-name="Jasa Desain Web" data-price-m2="0">
+                    <h3>6. Jasa Desain Web</h3>
+                    <p class="price-m2">Harga (Menyesuaikan)</p>
+                    <a href="https://wa.me/6285117788355?text=Halo%2C%20saya%20ingin%20memesan%20jasa%20desain%20web." target="_blank" class="select-btn wa-link">Konsultasi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="section calculator">
+        <div class="container">
+            <h2 class="section-title">⚖️ Kalkulator Estimasi Biaya Awal</h2>
+            <div class="calc-info">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>Penting!</strong> Luas bangunan dihitung per lantai. Contoh: Untuk bangunan 2 lantai dengan luas masing-masing 100m², masukkan total **200m²**.</p>
+            </div>
+            
+            <div class="calc-form">
+                <label for="area">Total Luas Bangunan ($m^2$):</label>
+                <input type="number" id="area" placeholder="Contoh: 200" min="1" oninput="calculateEstimate()">
+
+                <label for="product-select">Pilih Layanan/Paket:</label>
+                <select id="product-select" onchange="calculateEstimate()">
+                    <option value="0" data-price="0">-- Pilih Produk/Paket --</option>
+                    </select>
+
+                <div class="calc-result">
+                    <p>Estimasi Biaya Jasa:</p>
+                    <p id="estimated-cost">Rp 0</p>
+                    <small>*Harga belum termasuk layanan harga menyesuaikan.</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="section order-section">
+        <div class="container">
+            <h2 class="section-title">🛒 Keranjang Belanja Anda</h2>
+
+            <div class="cart-container">
+                <table id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Layanan/Paket</th>
+                            <th>Luas ($m^2$)</th>
+                            <th>Harga Total</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <tr><td colspan="4" class="empty-cart">Keranjang Anda kosong.</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="cart-summary">
+                    <label for="total-m2">Total Keseluruhan Luas Bangunan ($m^2$):</label>
+                    <input type="number" id="total-m2" placeholder="Masukkan total m² untuk pesanan Anda" min="1" oninput="updateCartPrices()">
+                    <p class="total-price-label">Total Biaya Estimasi:</p>
+                    <p id="cart-total-price" class="total-price">Rp 0</p>
+                </div>
+            </div>
+
+            <button id="checkout-btn" class="cta-button checkout-btn" onclick="checkout()">
+                <i class="fab fa-whatsapp"></i> Lanjut Pesan via WhatsApp
+            </button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Arsitek Elegance. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
