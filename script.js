@@ -10,7 +10,7 @@ const allProducts = {
     'Desain 3D Eksterior': 15000,
     'Rencana Anggaran Biaya (RAB)': 20000,
     'Desain 3D Interior': 15000,
-    // Layanan Menyesuaikan (Diberi harga 0 agar tidak dihitung di kalkulator, tapi dicatat di WA)
+    // Layanan Menyesuaikan 
     'Desain 2D dan 3D Furnitur': 0,
     'Jasa Desain Web': 0
 };
@@ -27,7 +27,7 @@ const formatRupiah = (number) => {
 };
 
 // =================================================================
-// 1. Kalkulator Estimasi Biaya
+// 1. Kalkulator Estimasi Biaya & Inisialisasi
 // =================================================================
 
 // Isi opsi produk di kalkulator saat halaman dimuat
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option.setAttribute('data-price', allProducts[name]);
         select.appendChild(option);
     }
+    renderCart(); // Panggil renderCart saat DOM siap
 });
 
 function calculateEstimate() {
@@ -50,13 +51,14 @@ function calculateEstimate() {
     const price_m2 = parseFloat(selectedOption.getAttribute('data-price')) || 0;
 
     let estimatedCost = area * price_m2;
+    const estimatedCostElement = document.getElementById('estimated-cost');
 
     if (area > 0 && price_m2 > 0) {
-        document.getElementById('estimated-cost').textContent = formatRupiah(estimatedCost);
+        estimatedCostElement.textContent = formatRupiah(estimatedCost);
     } else if (price_m2 === 0 && area > 0) {
-        document.getElementById('estimated-cost').textContent = "Rp 0 (Harga Menyesuaikan, hubungi kami)";
+        estimatedCostElement.textContent = "Rp 0 (Harga Menyesuaikan, hubungi kami)";
     } else {
-        document.getElementById('estimated-cost').textContent = formatRupiah(0);
+        estimatedCostElement.textContent = formatRupiah(0);
     }
 }
 
@@ -72,18 +74,18 @@ function addToCart(name, price_m2) {
         return;
     }
     
-    // Tambahkan produk ke keranjang dengan m2 awal 1
     const existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
         alert(`${name} sudah ada di keranjang. Anda bisa mengubah total m² di Keranjang Belanja.`);
     } else {
-        cart.push({ name: name, price_m2: price_m2, m2: 0 }); // m2 awal 0, akan diisi user di kolom total m2
+        // m2 awal 0, akan diisi user di kolom total m2
+        cart.push({ name: name, price_m2: price_m2, m2: 0 }); 
         renderCart();
-        alert(`${name} berhasil ditambahkan ke keranjang. Masukkan total m² bangunan Anda di bawah!`);
+        alert(`${name} berhasil ditambahkan ke keranjang. Masukkan total m² bangunan Anda di kolom Keranjang Belanja!`);
     }
 
-    // Animasi: Memicu animasi timbul saat item diklik (opsional, karena CSS sudah ada hover)
+    // Animasi: Memicu animasi timbul (pulse)
     const productElement = document.querySelector(`.package-item[data-name="${name}"]`) || document.querySelector(`.service-item[data-name="${name}"]`);
     if (productElement) {
         productElement.classList.add('pulse-animation');
@@ -92,22 +94,6 @@ function addToCart(name, price_m2) {
         }, 500);
     }
 }
-
-// Tambahkan class untuk animasi CSS
-const styleSheet = document.styleSheets[0];
-styleSheet.insertRule(`
-    .pulse-animation {
-        animation: pulse 0.5s ease-in-out;
-    }
-`, styleSheet.cssRules.length);
-styleSheet.insertRule(`
-    @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        50% { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    }
-`, styleSheet.cssRules.length);
-
 
 function removeFromCart(index) {
     cart.splice(index, 1);
@@ -118,7 +104,6 @@ function removeFromCart(index) {
 function renderCart() {
     const cartItemsElement = document.getElementById('cart-items');
     cartItemsElement.innerHTML = '';
-    let totalItems = 0;
 
     if (cart.length === 0) {
         cartItemsElement.innerHTML = '<tr><td colspan="4" class="empty-cart">Keranjang Anda kosong.</td></tr>';
@@ -130,12 +115,11 @@ function renderCart() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${item.name}</td>
-            <td class="m2-cell" data-index="${index}">${item.m2} $m^2$</td>
-            <td class="total-cell" data-index="${index}">${formatRupiah(item.m2 * item.price_m2)}</td>
+            <td class="m2-cell" data-index="${index}">0 $m^2$</td>
+            <td class="total-cell" data-index="${index}">${formatRupiah(0)}</td>
             <td><button class="remove-btn" onclick="removeFromCart(${index})">Hapus</button></td>
         `;
         cartItemsElement.appendChild(row);
-        totalItems++;
     });
 
     document.getElementById('checkout-btn').disabled = false;
@@ -148,21 +132,23 @@ function updateCartPrices() {
     let grandTotal = 0;
 
     if (totalM2 > 0) {
+        // Update m2 di setiap item keranjang
         cart.forEach(item => item.m2 = totalM2);
     } else {
+        // Jika input m2 kosong, set semua m2 ke 0
         cart.forEach(item => item.m2 = 0);
     }
     
     // Perbarui tampilan total harga per item dan hitung Grand Total
-    const m2Cells = document.querySelectorAll('.m2-cell');
-    const totalCells = document.querySelectorAll('.total-cell');
+    const m2Cells = document.querySelectorAll('#cart-table .m2-cell');
+    const totalCells = document.querySelectorAll('#cart-table .total-cell');
 
-    m2Cells.forEach((cell, index) => {
-        const item = cart[index];
+    cart.forEach((item, index) => {
         const totalPrice = item.m2 * item.price_m2;
         grandTotal += totalPrice;
-        cell.textContent = `${item.m2} $m^2$`;
-        totalCells[index].textContent = formatRupiah(totalPrice);
+        
+        if (m2Cells[index]) m2Cells[index].innerHTML = `${item.m2} $m^2$`;
+        if (totalCells[index]) totalCells[index].textContent = formatRupiah(totalPrice);
     });
 
     document.getElementById('cart-total-price').textContent = formatRupiah(grandTotal);
@@ -181,13 +167,13 @@ function checkout() {
 
     const totalM2 = parseFloat(document.getElementById('total-m2').value) || 0;
     if (totalM2 <= 0) {
-        alert("Mohon masukkan total luas bangunan (m²) untuk melanjutkan pemesanan.");
+        alert("Mohon masukkan total luas bangunan (m²) di Keranjang Belanja untuk melanjutkan pemesanan.");
         document.getElementById('total-m2').focus();
         return;
     }
 
     let message = "Halo, saya ingin memesan layanan desain bangunan Anda.\n\n";
-    message += `Total Luas Bangunan: ${totalM2} $m^2$\n\n`;
+    message += `Total Luas Bangunan: ${totalM2} m2\n\n`;
     message += "Detail Pesanan:\n";
     let grandTotal = 0;
 
@@ -195,8 +181,8 @@ function checkout() {
         const itemTotal = item.m2 * item.price_m2;
         grandTotal += itemTotal;
         message += `${index + 1}. ${item.name}\n`;
-        message += `   Luas: ${item.m2} $m^2$\n`;
-        message += `   Harga/m²: ${formatRupiah(item.price_m2)}\n`;
+        message += `   Luas: ${item.m2} m2\n`;
+        message += `   Harga/m2: ${formatRupiah(item.price_m2)}\n`;
         message += `   Total: ${formatRupiah(itemTotal)}\n`;
     });
 
@@ -209,6 +195,3 @@ function checkout() {
     const whatsappURL = `https://wa.me/6285117788355?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
 }
-
-// Initial render
-renderCart();
