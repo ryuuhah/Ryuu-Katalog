@@ -1,0 +1,414 @@
+/* Warna Tema */
+:root {
+    --color-primary: #3B6790; /* Biru Tua Elegant */
+    --color-secondary: #EFB036; /* Emas/Kuning Mustard */
+    --color-dark: #23486A; /* Biru Sangat Tua */
+    --color-light: #4C7B8B; /* Biru Kebiruan */
+    --color-bg: #f8f8f8;
+    --color-text: #333;
+    --color-white: #fff;
+}
+
+/* Reset dan Dasar */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--color-dark);
+    font-size: 2em;
+    font-weight: 700;
+}
+
+/* Header & Navigasi */
+.header {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 800;
+}
+
+.logo span {
+    color: var(--color-secondary);
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.header nav ul li a {
+    color: var(--color-white);
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header nav ul li a:hover {
+    background-color: var(--color-light);
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(35, 72, 106, 0.85), rgba(35, 72, 106, 0.85)), url('https://picsum.photos/1200/600') center/cover; /* Ganti dengan gambar bangunan elegan */
+    color: var(--color-white);
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #e4a233; /* Sedikit lebih gelap */
+    transform: translateY(-2px);
+}
+
+/* Paket & Layanan */
+.package-list, .service-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.package-item, .service-item {
+    background-color: var(--color-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Animasi Timbul ke Atas (Hover Effect) */
+.package-item:hover, .service-item:hover {
+    transform: translateY(-10px); /* Animasi timbul ke atas */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.package-item h3, .service-item h3 {
+    color: var(--color-dark);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.package-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-light);
+    color: var(--color-white);
+    padding: 5px 15px;
+    border-bottom-left-radius: 10px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* Harga Coret */
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.new-price {
+    color: var(--color-secondary);
+    font-size: 2.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.new-price span {
+    font-size: 0.5em;
+    font-weight: normal;
+    color: var(--color-text);
+}
+
+.package-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.package-features li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #eee;
+    color: var(--color-dark);
+}
+
+.package-features li i {
+    color: var(--color-primary);
+    margin-right: 10px;
+}
+
+.select-btn {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.select-btn:hover {
+    background-color: var(--color-light);
+}
+
+/* Paket Populer */
+.package-item.popular {
+    border: 3px solid var(--color-primary);
+    transform: scale(1.05); /* Sedikit lebih besar */
+}
+
+.popular-badge {
+    background-color: var(--color-primary);
+}
+
+/* Paket Premium */
+.package-item.premium {
+    border: 3px solid var(--color-secondary); /* Bingkai Emas */
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.premium-badge {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+}
+
+/* Animasi Aura Emas */
+.premium-aura {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(239, 176, 54, 0.4), transparent); /* Efek mengkilat */
+    z-index: -1;
+    animation: rotateAura 5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateAura {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Kalkulator & Keranjang */
+.calculator, .order-section {
+    background-color: var(--color-white);
+    border-top: 1px solid #ddd;
+}
+
+.calc-info {
+    background-color: #fff3cd;
+    border-left: 5px solid var(--color-secondary);
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.calc-info i {
+    color: var(--color-secondary);
+    font-size: 1.5em;
+    margin-right: 15px;
+}
+
+.calc-form, .cart-summary {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.calc-form label, .cart-summary label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.calc-form input, .calc-form select, .cart-summary input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.calc-result {
+    text-align: center;
+    border-top: 2px solid var(--color-primary);
+    padding-top: 15px;
+}
+
+#estimated-cost, #cart-total-price {
+    font-size: 2.5em;
+    color: var(--color-dark);
+    font-weight: 700;
+}
+
+/* Keranjang */
+.cart-container {
+    max-width: 900px;
+    margin: 0 auto 30px;
+}
+
+#cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#cart-table th, #cart-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#cart-table th {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: normal;
+}
+
+#cart-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: var(--color-white);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.checkout-btn {
+    display: block;
+    margin: 30px auto 0;
+    width: 80%;
+    max-width: 400px;
+    font-size: 1.1em;
+    padding: 15px;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header nav ul {
+        padding-top: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .header nav ul li a {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    .package-item.popular {
+        transform: none; /* Nonaktifkan scale di mobile */
+    }
+
+    .package-item:hover, .service-item:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+}
