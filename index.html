@@ -93,32 +93,32 @@
         <div class="container">
             <h2 class="section-title">Layanan Jasa Gambar Satuan</h2>
             <div class="service-list">
-                <div class="service-item" data-name="Gambar Kerja Desain 2D" data-price-m2="15000">
+                <div class="service-item service-flex" data-name="Gambar Kerja Desain 2D" data-price-m2="15000">
                     <h3>1. Gambar Kerja Desain 2D</h3>
                     <p class="price-m2">Rp 15.000/m²</p>
                     <button class="select-btn" onclick="addToCart('Gambar Kerja Desain 2D', 15000)">Tambah</button>
                 </div>
-                <div class="service-item" data-name="Desain 3D Eksterior" data-price-m2="15000">
+                <div class="service-item service-flex" data-name="Desain 3D Eksterior" data-price-m2="15000">
                     <h3>2. Desain 3D Eksterior</h3>
                     <p class="price-m2">Rp 15.000/m²</p>
                     <button class="select-btn" onclick="addToCart('Desain 3D Eksterior', 15000)">Tambah</button>
                 </div>
-                <div class="service-item" data-name="Rencana Anggaran Biaya (RAB)" data-price-m2="20000">
+                <div class="service-item service-flex" data-name="Rencana Anggaran Biaya (RAB)" data-price-m2="20000">
                     <h3>3. Rencana Anggaran Biaya (RAB)</h3>
                     <p class="price-m2">Rp 20.000/m²</p>
                     <button class="select-btn" onclick="addToCart('Rencana Anggaran Biaya (RAB)', 20000)">Tambah</button>
                 </div>
-                <div class="service-item" data-name="Desain 3D Interior" data-price-m2="15000">
+                <div class="service-item service-flex" data-name="Desain 3D Interior" data-price-m2="15000">
                     <h3>4. Desain 3D Interior</h3>
                     <p class="price-m2">Rp 15.000/m²</p>
                     <button class="select-btn" onclick="addToCart('Desain 3D Interior', 15000)">Tambah</button>
                 </div>
-                <div class="service-item" data-name="Desain 2D dan 3D Furnitur" data-price-m2="0">
+                <div class="service-item service-flex" data-name="Desain 2D dan 3D Furnitur" data-price-m2="0">
                     <h3>5. Desain 2D & 3D Furnitur</h3>
                     <p class="price-m2">Harga (Menyesuaikan)</p>
                     <a href="https://wa.me/6285117788355?text=Halo%2C%20saya%20ingin%20memesan%20jasa%20desain%20furnitur." target="_blank" class="select-btn wa-link">Konsultasi</a>
                 </div>
-                <div class="service-item" data-name="Jasa Desain Web" data-price-m2="0">
+                <div class="service-item service-flex" data-name="Jasa Desain Web" data-price-m2="0">
                     <h3>6. Jasa Desain Web</h3>
                     <p class="price-m2">Harga (Menyesuaikan)</p>
                     <a href="https://wa.me/6285117788355?text=Halo%2C%20saya%20ingin%20memesan%20jasa%20desain%20web." target="_blank" class="select-btn wa-link">Konsultasi</a>
@@ -153,45 +153,45 @@
         </div>
     </section>
 
-    <section id="order" class="section order-section">
-        <div class="container">
-            <h2 class="section-title">🛒 Keranjang Belanja Anda</h2>
-
-            <div class="cart-container">
-                <table id="cart-table">
-                    <thead>
-                        <tr>
-                            <th>Layanan/Paket</th>
-                            <th>Luas ($m^2$)</th>
-                            <th>Harga Total</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items">
-                        <tr><td colspan="4" class="empty-cart">Keranjang Anda kosong.</td></tr>
-                    </tbody>
-                </table>
-                
-                <div class="cart-summary">
-                    <label for="total-m2">Total Keseluruhan Luas Bangunan ($m^2$):</label>
-                    <input type="number" id="total-m2" placeholder="Masukkan total m² untuk pesanan Anda" min="1" oninput="updateCartPrices()">
-                    <p class="total-price-label">Total Biaya Estimasi:</p>
-                    <p id="cart-total-price" class="total-price">Rp 0</p>
-                </div>
-            </div>
-
-            <button id="checkout-btn" class="cta-button checkout-btn" onclick="checkout()">
-                <i class="fab fa-whatsapp"></i> Lanjut Pesan via WhatsApp
-            </button>
-        </div>
-    </section>
-
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Arsitek Elegance. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <button id="cart-toggle-btn" class="cta-button" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i> <span id="cart-item-count">0</span>
+    </button>
+
+    <div id="floating-cart" class="floating-cart">
+        <div class="cart-header">
+            <h3>🛒 Keranjang Belanja</h3>
+            <button class="close-btn" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-body">
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Layanan</th>
+                        <th>Hapus</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="cart-footer">
+            <label for="total-m2">Total Luas Bangunan ($m^2$):</label>
+            <input type="number" id="total-m2" placeholder="Total m²" min="1" oninput="updateCartPrices()">
+            <p class="total-price-label">Total Estimasi:</p>
+            <p id="cart-total-price" class="total-price">Rp 0</p>
+            <button id="checkout-btn" class="cta-button checkout-btn" onclick="checkout()">
+                <i class="fab fa-whatsapp"></i> Pesan via WA
+            </button>
+        </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
