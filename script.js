@@ -27,10 +27,21 @@ const formatRupiah = (number) => {
 };
 
 // =================================================================
-// 1. Kalkulator Estimasi Biaya & Inisialisasi
+// 1. Fungsi Floating Cart (Toggle)
 // =================================================================
 
-// Isi opsi produk di kalkulator saat halaman dimuat
+function toggleCart() {
+    const cartElement = document.getElementById('floating-cart');
+    cartElement.classList.toggle('open');
+    
+    // Nonaktifkan scroll body saat keranjang terbuka
+    document.body.style.overflow = cartElement.classList.contains('open') ? 'hidden' : 'auto';
+}
+
+// =================================================================
+// 2. Kalkulator Estimasi Biaya & Inisialisasi
+// =================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('product-select');
     for (const name in allProducts) {
@@ -40,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option.setAttribute('data-price', allProducts[name]);
         select.appendChild(option);
     }
-    renderCart(); // Panggil renderCart saat DOM siap
+    renderCart(); 
 });
 
 function calculateEstimate() {
@@ -64,11 +75,10 @@ function calculateEstimate() {
 
 
 // =================================================================
-// 2. Keranjang Belanja
+// 3. Keranjang Belanja (Dynamic)
 // =================================================================
 
 function addToCart(name, price_m2) {
-    // Cek apakah produk dengan harga menyesuaikan (price_m2 === 0)
     if (price_m2 === 0) {
         alert("Layanan ini memiliki harga yang menyesuaikan. Silakan gunakan tombol 'Konsultasi' di bawahnya untuk langsung menghubungi kami.");
         return;
@@ -77,12 +87,14 @@ function addToCart(name, price_m2) {
     const existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
-        alert(`${name} sudah ada di keranjang. Anda bisa mengubah total m² di Keranjang Belanja.`);
+        alert(`${name} sudah ada di keranjang. Anda bisa melanjutkan ke Floating Cart untuk checkout.`);
     } else {
-        // m2 awal 0, akan diisi user di kolom total m2
         cart.push({ name: name, price_m2: price_m2, m2: 0 }); 
         renderCart();
-        alert(`${name} berhasil ditambahkan ke keranjang. Masukkan total m² bangunan Anda di kolom Keranjang Belanja!`);
+        alert(`${name} berhasil ditambahkan ke keranjang. Klik ikon keranjang (emas) di pojok kanan bawah untuk checkout!`);
+        if (!document.getElementById('floating-cart').classList.contains('open')) {
+             toggleCart(); // Buka keranjang setelah menambah
+        }
     }
 
     // Animasi: Memicu animasi timbul (pulse)
@@ -104,19 +116,21 @@ function removeFromCart(index) {
 function renderCart() {
     const cartItemsElement = document.getElementById('cart-items');
     cartItemsElement.innerHTML = '';
+    
+    const cartItemCountElement = document.getElementById('cart-item-count');
+    cartItemCountElement.textContent = cart.length;
 
     if (cart.length === 0) {
-        cartItemsElement.innerHTML = '<tr><td colspan="4" class="empty-cart">Keranjang Anda kosong.</td></tr>';
+        cartItemsElement.innerHTML = '<tr><td colspan="2" class="empty-cart">Keranjang Anda kosong.</td></tr>';
         document.getElementById('checkout-btn').disabled = true;
+        document.getElementById('cart-total-price').textContent = formatRupiah(0);
         return;
     }
 
     cart.forEach((item, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${item.name}</td>
-            <td class="m2-cell" data-index="${index}">0 $m^2$</td>
-            <td class="total-cell" data-index="${index}">${formatRupiah(0)}</td>
+            <td>${item.name} <br><small>(${formatRupiah(item.price_m2)} / $m^2$)</small></td>
             <td><button class="remove-btn" onclick="removeFromCart(${index})">Hapus</button></td>
         `;
         cartItemsElement.appendChild(row);
@@ -132,23 +146,14 @@ function updateCartPrices() {
     let grandTotal = 0;
 
     if (totalM2 > 0) {
-        // Update m2 di setiap item keranjang
         cart.forEach(item => item.m2 = totalM2);
     } else {
-        // Jika input m2 kosong, set semua m2 ke 0
         cart.forEach(item => item.m2 = 0);
     }
     
-    // Perbarui tampilan total harga per item dan hitung Grand Total
-    const m2Cells = document.querySelectorAll('#cart-table .m2-cell');
-    const totalCells = document.querySelectorAll('#cart-table .total-cell');
-
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
         const totalPrice = item.m2 * item.price_m2;
         grandTotal += totalPrice;
-        
-        if (m2Cells[index]) m2Cells[index].innerHTML = `${item.m2} $m^2$`;
-        if (totalCells[index]) totalCells[index].textContent = formatRupiah(totalPrice);
     });
 
     document.getElementById('cart-total-price').textContent = formatRupiah(grandTotal);
@@ -156,7 +161,7 @@ function updateCartPrices() {
 
 
 // =================================================================
-// 3. Checkout WhatsApp
+// 4. Checkout WhatsApp
 // =================================================================
 
 function checkout() {
@@ -167,7 +172,7 @@ function checkout() {
 
     const totalM2 = parseFloat(document.getElementById('total-m2').value) || 0;
     if (totalM2 <= 0) {
-        alert("Mohon masukkan total luas bangunan (m²) di Keranjang Belanja untuk melanjutkan pemesanan.");
+        alert("Mohon masukkan total luas bangunan (m²) di Floating Cart untuk melanjutkan pemesanan.");
         document.getElementById('total-m2').focus();
         return;
     }
